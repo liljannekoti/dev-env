@@ -17,11 +17,15 @@
     extraGroups = [ "wheel" "networkmanager" "docker" ];
   };
 
-  wsl.enable = true;
-  wsl.defaultUser = "perttu";
+  wsl = {
+    enable = true;
+    defaultUser = "perttu";
+    docker-desktop.enable = true;
+  };
 
   virtualisation.docker = {
     enable = true;
+    enableOnBoot = false;
 
     rootless = {
       enable = true;
@@ -43,6 +47,8 @@
       unstable.neovim
       vscode
       vscode.fhs
+      zoxide
+      docker
       vim
       wget
       git
@@ -74,6 +80,12 @@
     ll = "eza -l";
     la = "eza -a";
     lla = "eza -al";
+  };
+
+  services.openssh = {
+    enable = false;
+    settings.PasswordAuthentication = false;
+    settings.KbdInteractiveAuthentication = false;
   };
 
   system.stateVersion = "24.11";
