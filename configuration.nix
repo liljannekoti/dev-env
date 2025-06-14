@@ -1,26 +1,36 @@
 { config, lib, pkgs, ... }:
 
+# sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos-unstable && sudo nix-channel --update
 {
   imports = [
     <nixos-wsl/modules>
     (fetchTarball "https://github.com/nix-community/nixos-vscode-server/tarball/master")
   ];
 
+
   services.vscode-server.enable = true;
 
   wsl.enable = true;
-  wsl.defaultUser = "nixos";
+  wsl.defaultUser = "perttu";
 
-  nixpkgs.config.allowUnfree = true;
+
+  nixpkgs.config = {
+    allowUnfree = true;
+    packageOverrides = pkgs: {
+      unstable = import <nixos-unstable> { config = config.nixpkgs.config; };
+    };
+  };
+
+
   i18n.defaultLocale = "en_US.UTF-8";
 
   environment.systemPackages = with pkgs;
     [
+      unstable.neovim
       vscode
       vscode.fhs
       vim
       wget
-      neovim
       git
       stow
       gh
