@@ -65,6 +65,8 @@
       go
       eza
       fzf
+      lua
+      python3Full
     ];
 
   environment = {
@@ -76,10 +78,10 @@
   };
 
   programs.bash.shellAliases = {
-    ls = "eza";
-    ll = "eza -l";
-    la = "eza -a";
-    lla = "eza -al";
+    ls = "eza --color=always --group-directories-first --git --git-repos";
+    ll = "eza -l --color=always --group-directories-first --git --git-repos";
+    la = "eza -a --color=always --group-directories-first --git --git-repos";
+    lla = "eza -alhF --color=always --group-directories-first --git --git-repos";
   };
 
   services.openssh = {
